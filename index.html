@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Конструктор научно-популярного маршрута</title>
+<title>Грантмастер — конструктор проектов и заявок</title>
+<link rel="icon" type="image/png" href="./Logo_32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -11,130 +12,112 @@
 </head>
 <body>
 
-<div class="disclaimer">
-  ⚠️ <b>Это независимый учебный прототип</b>, не официальный сайт инициативы «Десятилетие науки и технологий». Все данные сохраняются только в этой вкладке и никуда не отправляются.
-</div>
-
-<div class="topbar">
-  <div class="brand">
-    <div class="brand-mark">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L14.5 8.5L21 11L14.5 13.5L12 20L9.5 13.5L3 11L9.5 8.5L12 2Z" fill="white"/>
-      </svg>
-    </div>
-    <div>
-      <div class="brand-text">Конструктор НПТ‑маршрута</div>
-      <div class="brand-sub">по Приложению 2 «Научно‑популярный туризм»</div>
-    </div>
-  </div>
-  <div class="topbar-right">
-    <div class="pill-badge"><span class="dot"></span><span id="progressLabel">0 из 13 блоков</span></div>
-  </div>
-</div>
-
 <div class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-brand">
+    <div class="hero-brand-mark">
+      <img src="./Logo_64.png" alt="" aria-hidden="true">
+    </div>
+    <div class="hero-brand-copy">
+      <div class="hero-brand-title">ГРАНТМАСТЕР</div>
+      <span class="hero-brand-divider" aria-hidden="true"></span>
+      <div class="hero-brand-subtitle">помощник в проектировании заявок и инициатив</div>
+    </div>
+  </div>
   <div class="hero-inner">
     <div>
-      <div class="eyebrow"><span class="line"></span> ПОДГОТОВКА К ПОДАЧЕ НА ВЕРИФИКАЦИЮ</div>
-      <h1>Опишите маршрут так,<br>чтобы его <span>сразу поняли</span></h1>
-      <p class="hero-desc">Официальный шаблон Приложения 2 написан языком методички — со скобками, формулировками «да/нет» и без подсказок. Здесь то же содержание разбито на понятные шаги с пояснением, зачем нужен каждый пункт. На выходе — готовый текст для подачи координатору.</p>
+      <div class="eyebrow"><span class="line"></span> ПРОЕКТИРОВАНИЕ ИНИЦИАТИВ И ЗАЯВОК</div>
+      <h1>Сначала поймите проект.<br>Потом готовьте заявку.</h1>
+      <p class="hero-desc">Грантмастер помогает разобраться, что хотят увидеть эксперты: какую проблему решает проект, для кого он нужен, каких результатов должен достичь и какие ресурсы потребуются. Сначала объяснение и логика, потом заполнение разделов.</p>
       <div class="hero-actions">
-        <button class="btn btn-primary" onclick="scrollToWorkspace()">
-          Начать заполнение →
+        <button class="btn btn-primary" onclick="scrollToDiagnostic()">
+          Начать с диагностики →
         </button>
-        <button class="btn btn-ghost" onclick="document.getElementById('aboutAlgo').scrollIntoView({behavior:'smooth'})">Как устроен запуск маршрута</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('aboutAlgo').scrollIntoView({behavior:'smooth'})">Как работает Грантмастер</button>
       </div>
     </div>
     <div class="hero-stats">
       <div class="hero-stats-inner">
-        <h3>Что внутри</h3>
-        <div class="stat-row"><span class="stat-label">Блоков шаблона</span><span class="stat-value">13</span></div>
-        <div class="stat-row"><span class="stat-label">Обязательных фото объекта</span><span class="stat-value">≥ 3, авторских</span></div>
-        <div class="stat-row"><span class="stat-label">Научная часть маршрута</span><span class="stat-value">&gt; 50% содержания</span></div>
-        <div class="stat-row"><span class="stat-label">Источник классификатора</span><span class="stat-value">РНФ</span></div>
+        <h3>От идеи к проекту</h3>
+        <p class="hero-stats-lead">16 шагов, чтобы собрать логику заявки</p>
+        <div class="hero-chip-list">
+          <span class="hero-chip">Проблема</span>
+          <span class="hero-chip">Аудитория</span>
+          <span class="hero-chip">Решение</span>
+        </div>
+        <p class="hero-stats-note">Система ведёт по экспертной логике, а не просто показывает поля.</p>
       </div>
     </div>
   </div>
 </div>
 
-<section class="npt-section" id="whatIsNpt">
-  <div class="section-kicker">Что такое НПТ-маршрут</div>
+<section class="intro-section" id="aboutAlgo">
+  <div class="section-kicker">Что такое Грантмастер</div>
   <div class="section-head">
     <div>
-      <h2 class="section-title">Это не экскурсия «про науку», а маршрут с научным опытом</h2>
-      <p class="section-desc">Научно‑популярный маршрут соединяет научную тему, понятную аудиторию, программу передвижения и действия участника. Важно не только куда человек приходит, но что он видит, пробует и понимает по итогам маршрута.</p>
+      <h2 class="section-title">Это помощник, который помогает собрать проектную логику до заявки</h2>
+      <p class="section-desc">Грантмастер не заполняет заявку за автора. Он помогает понять, что именно нужно проработать: проблему, аудиторию, решение, цели, действия, результаты и ресурсы проекта.</p>
     </div>
     <div class="section-note">
       <b>Главный вопрос:</b>
-      <span>может ли участник увидеть или попробовать, как работает наука, а не просто услышать интересный рассказ?</span>
+      <span>понятно ли эксперту, зачем нужен проект, для кого он создан и за счёт чего он даст результат?</span>
     </div>
   </div>
 
-  <div class="npt-principles">
-    <article class="principle-card">
-      <span class="principle-icon">🔬</span>
-      <h3>Наука</h3>
-      <p>У маршрута есть научное направление, тема и связь с реальными исследованиями, открытиями или технологиями.</p>
-    </article>
-    <article class="principle-card">
-      <span class="principle-icon">🧪</span>
-      <h3>Научный процесс</h3>
-      <p>Участник видит метод, эксперимент, наблюдение, работу с данными или другой фрагмент настоящей научной практики.</p>
-    </article>
-    <article class="principle-card">
-      <span class="principle-icon">🎓</span>
-      <h3>Образование</h3>
-      <p>Маршрут даёт понятный результат: новые знания, навыки, интерес к профессии или понимание научного направления.</p>
-    </article>
+  <div class="intro-card-grid">
     <article class="principle-card">
       <span class="principle-icon">🧭</span>
-      <h3>Интерактив</h3>
-      <p>Человек не только слушает: он задаёт вопросы, пробует, сравнивает, исследует, выполняет задание или участвует в демонстрации.</p>
+      <h3>Навигация по проекту</h3>
+      <p>Конструктор ведёт от первичной идеи к связанной структуре проекта, которую проще обсуждать, проверять и дорабатывать.</p>
     </article>
     <article class="principle-card">
-      <span class="principle-icon">🚍</span>
-      <h3>Маршрут</h3>
-      <p>Есть логичная программа: точки посещения, последовательность действий, время, перемещения и понятная организация поездки.</p>
+      <span class="principle-icon">🧠</span>
+      <h3>Экспертная логика</h3>
+      <p>Каждый блок отвечает на вопрос, который обычно задаёт эксперт: есть ли проблема, понятна ли аудитория, достижимы ли результаты.</p>
     </article>
     <article class="principle-card">
-      <span class="principle-icon">👥</span>
-      <h3>Аудитория</h3>
-      <p>Понятно, для кого создан маршрут: школьники, студенты, семьи, специалисты или другая группа с конкретным уровнем подготовки.</p>
+      <span class="principle-icon">📄</span>
+      <h3>Паспорт проекта</h3>
+      <p>На выходе пользователь получает структурированный черновик проекта, который можно адаптировать под конкурс, партнёров или обсуждение.</p>
+    </article>
+    <article class="principle-card">
+      <span class="principle-icon">✅</span>
+      <h3>Самопроверка</h3>
+      <p>Интерфейс помогает увидеть слабые места до подачи: общие формулировки, несвязанные задачи, размытые результаты или слабые ресурсы.</p>
     </article>
   </div>
 
-  <div class="npt-compare">
+  <div class="npt-compare project-logic-compare">
     <div class="compare-card compare-card-negative">
-      <div class="compare-label">Не НПТ, если это просто</div>
+      <div class="compare-label">Типичные ошибки</div>
       <ul>
-        <li>экскурсия по объекту без научной логики;</li>
-        <li>лекция без маршрута и действий участника;</li>
-        <li>тур, где наука остаётся декоративной темой;</li>
-        <li>посещение музея без исследовательского опыта.</li>
+        <li>описана красивая идея, но не сформулирована проблема;</li>
+        <li>целевая аудитория названа слишком широко;</li>
+        <li>мероприятия не связаны с задачами и результатами;</li>
+        <li>результаты звучат общо и не поддаются проверке.</li>
       </ul>
     </div>
     <div class="compare-card compare-card-positive">
-      <div class="compare-label">Похоже на НПТ, если</div>
+      <div class="compare-label">Хорошая проектная логика</div>
       <ul>
-        <li>есть научная тема и понятный объект или объекты;</li>
-        <li>участник видит или пробует научный процесс;</li>
-        <li>есть образовательный результат;</li>
-        <li>маршрут собран в реализуемую программу.</li>
+        <li>понятно, какую проблему решает проект;</li>
+        <li>ясно, для кого проект и почему этой группе нужна помощь;</li>
+        <li>решение связано с целью, задачами и мероприятиями;</li>
+        <li>результаты можно объяснить, измерить и проверить.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="diagnostic-section" id="nptDiagnostic">
-  <div class="section-kicker">НПТ или не НПТ</div>
+<section class="diagnostic-section" id="projectDiagnostic">
+  <div class="section-kicker">ДИАГНОСТИКА ПРОЕКТА</div>
   <div class="diagnostic-shell">
     <div class="diagnostic-intro">
-      <h2 class="section-title">Проверьте идею маршрута за пару минут</h2>
-      <p class="section-desc">Это не экспертиза и не официальная оценка. Диагностика помогает понять, похожа ли ваша идея на научно‑популярный маршрут или пока ближе к экскурсии, лекции или обычному туру.</p>
+      <h2 class="section-title">Проверьте зрелость проекта за несколько минут</h2>
+      <p class="section-desc">Это не экспертиза и не оценка шансов. Диагностика помогает понять, что уже собрано в проектной логике, а какие части нужно проработать перед заявкой.</p>
       <div class="diagnostic-note">
         <b>Смысл проверки</b>
-        <span>Не угадать “правильный ответ”, а увидеть, какие части маршрута уже сильные и что стоит усилить перед работой с Приложением 2.</span>
+        <span>Не угадать “правильный ответ”, а увидеть текущую стадию проекта и понять, какие слабые места нужно усилить.</span>
       </div>
     </div>
 
@@ -143,172 +126,99 @@
       <div class="diagnostic-result" id="diagnosticResult">
         <div class="result-empty">
           <span>Ответьте на вопросы</span>
-          <p>После этого здесь появится предварительный статус идеи и список направлений для усиления.</p>
+          <p>После этого здесь появится предварительная стадия проекта, сильные стороны и рекомендации по доработке.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="launch-section" id="aboutAlgo">
-  <div class="section-kicker">Как проходит запуск маршрута</div>
-  <div class="launch-hero">
+<section class="requirements-section logic-map-section" id="requirementsMap">
+  <div class="section-kicker">Карта логики проекта</div>
+  <div class="logic-map-summary">
     <div>
-      <h2 class="section-title">От идеи до публикации: где находится ваша работа</h2>
-      <p class="section-desc">Запуск НПТ‑маршрута — это не один документ и не одна кнопка. Сначала авторы собирают сильное описание маршрута, затем подключается ответственное лицо региона, после этого материалы уходят на дальнейшую проверку и верификацию.</p>
+      <h2 class="section-title">Проект сильнее, когда его части связаны между собой.</h2>
+      <p class="section-desc">Карта помогает увидеть не отдельные поля, а единую логику проекта.</p>
     </div>
-    <div class="launch-focus">
-      <span>Вы сейчас здесь</span>
-      <b>готовите понятное описание маршрута и проверяете, хватает ли ему научной, образовательной и организационной логики.</b>
-    </div>
-  </div>
-
-  <div class="launch-roadmap">
-    <article class="roadmap-step">
-      <div class="roadmap-marker">1</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Старт</span>
-        <h3>Идея маршрута</h3>
-        <p>У организации, туроператора, музея или автора появляется идея: научная тема, объект, программа или уже существующая экскурсия, которую хочется развить до НПТ‑маршрута.</p>
-        <div class="roadmap-important"><b>Что важно:</b> не начинать с таблицы, а сначала понять, есть ли в идее наука, аудитория и опыт участника.</div>
-      </div>
-    </article>
-
-    <article class="roadmap-step roadmap-step-current">
-      <div class="roadmap-marker">2</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Ваша зона работы</span>
-        <h3>Подготовка описания маршрута</h3>
-        <p>Автор маршрута собирает описание по логике Приложения 2: научная составляющая, объекты, программа, интерактив, безопасность, результаты и материалы.</p>
-        <div class="roadmap-important"><b>Что важно:</b> показать не только “куда поедут участники”, но и какую научную логику они увидят или попробуют.</div>
-      </div>
-    </article>
-
-    <article class="roadmap-step">
-      <div class="roadmap-marker">3</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Самопроверка</span>
-        <h3>Проверка готовности</h3>
-        <p>Перед передачей материалов стоит проверить слабые места: научный процесс, интерактив, аудиторию, программу, безопасность и авторские фото.</p>
-        <div class="roadmap-important"><b>Что важно:</b> заполненный шаблон не равен готовому маршруту — экспертам нужна содержательная убедительность.</div>
-      </div>
-    </article>
-
-    <article class="roadmap-step">
-      <div class="roadmap-marker">4</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Регион</span>
-        <h3>Контакт с ответственным лицом</h3>
-        <p>Туроператор, научная организация или автор связывается с ответственным лицом профильного ведомства региона. Для ведомства важно назначить такого ответственного и собрать контакты.</p>
-        <div class="roadmap-important"><b>Что важно:</b> материалы должны быть понятными для региона: кто организатор, что за маршрут, какие объекты и что уже готово.</div>
-      </div>
-    </article>
-
-    <article class="roadmap-step">
-      <div class="roadmap-marker">5</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Передача</span>
-        <h3>Направление материалов</h3>
-        <p>Подготовленное описание маршрута, контакты ответственных и сопутствующие материалы передаются по официальному алгоритму для дальнейшей работы с инициативой.</p>
-        <div class="roadmap-important"><b>Что важно:</b> приложить не только текст, но и комплектность: контакты, описание, фото и понятный статус готовности.</div>
-      </div>
-    </article>
-
-    <article class="roadmap-step">
-      <div class="roadmap-marker">6</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Проверка</span>
-        <h3>Верификация маршрута</h3>
-        <p>Дальше маршрут смотрят уже не как идею, а как потенциальный НПТ‑маршрут: оценивают научную, образовательную, интерактивную и организационную состоятельность.</p>
-        <div class="roadmap-important"><b>Что важно:</b> сильнее всего работают конкретика, научный процесс, понятная аудитория и реалистичная программа.</div>
-      </div>
-    </article>
-
-    <article class="roadmap-step">
-      <div class="roadmap-marker">7</div>
-      <div class="roadmap-card">
-        <span class="roadmap-tag">Финиш</span>
-        <h3>Публикация маршрута</h3>
-        <p>После успешного прохождения официальных этапов маршрут может быть опубликован в рамках инициативы и стать видимым для участников и партнёров.</p>
-        <div class="roadmap-important"><b>Что важно:</b> публикация — результат не только красивой идеи, но и хорошо подготовленного маршрута.</div>
-      </div>
-    </article>
-  </div>
-
-  <div class="launch-roles">
-    <h3>Кто участвует в запуске маршрута</h3>
-    <div class="role-grid">
-      <article class="role-card"><span>✍️</span><b>Автор маршрута</b><p>Формулирует идею, собирает описание и проверяет слабые места.</p></article>
-      <article class="role-card"><span>🔬</span><b>Научная организация</b><p>Даёт научную тему, объект, экспертов, лабораторию или содержательную базу.</p></article>
-      <article class="role-card"><span>🧭</span><b>Туроператор</b><p>Помогает собрать программу, логистику, стоимость и реальный маршрутный продукт.</p></article>
-      <article class="role-card"><span>🏛️</span><b>Ответственный региона</b><p>Координирует взаимодействие и передачу материалов по официальному алгоритму.</p></article>
-      <article class="role-card"><span>🚀</span><b>Инициатива НПТ</b><p>Задаёт рамку направления и принимает материалы для дальнейшей работы.</p></article>
-      <article class="role-card"><span>✅</span><b>Эксперты / верификаторы</b><p>Смотрят, насколько маршрут соответствует логике научно‑популярного туризма.</p></article>
+    <div class="logic-chain" aria-label="Краткая логика проекта">
+      <span>Проблема</span>
+      <span>Аудитория</span>
+      <span>Решение</span>
+      <span>Цель</span>
+      <span>Задачи</span>
+      <span>Мероприятия</span>
+      <span>Результаты</span>
+      <span>Ресурсы</span>
+      <span>Устойчивость</span>
     </div>
   </div>
 
-  <div class="launch-summary">
-    <b>Если коротко:</b>
-    <span>ваша ближайшая задача — подготовить качественное описание маршрута, проверить его по ключевым признакам НПТ и передать материалы ответственному лицу региона. Официальные этапы запуска идут уже после этого.</span>
-  </div>
-</section>
+  <details class="logic-map-details">
+    <summary>
+      <span>Посмотреть подробную карту логики проекта</span>
+      <b><span class="summary-closed">Раскрыть карту</span><span class="summary-open">Свернуть карту</span></b>
+    </summary>
 
-<section class="requirements-section" id="requirementsMap">
-  <div class="section-kicker">Карта требований НПТ</div>
   <div class="requirements-hero">
     <div>
-      <h2 class="section-title">13 разделов Приложения 2 как единая система маршрута</h2>
-      <p class="section-desc">Качественный НПТ‑маршрут складывается не из отдельных полей, а из связанных решений: кому адресован маршрут, какую науку он показывает, как устроена программа, чем занимается участник и насколько всё это реально провести.</p>
+      <h2 class="section-title">Проектная логика как единая система</h2>
+      <p class="section-desc">Сильная заявка держится на связке решений: зачем нужен проект, для кого он создан, как будет реализован и чем подтвердит свою ценность.</p>
     </div>
     <div class="requirements-question">
       <span>Главная логика карты</span>
-      <b>сначала обосновать идею, затем доказать научно‑образовательную ценность, потом показать реалистичность запуска.</b>
+      <b>сначала объяснить смысл проекта, затем показать реалистичность реализации, потом доказать ценность результата.</b>
     </div>
   </div>
 
-  <div class="requirements-legend" aria-label="Типы разделов карты требований">
-    <span><i class="legend-dot legend-base"></i>База маршрута</span>
-    <span><i class="legend-dot legend-core"></i>Ключевые для верификации</span>
-    <span><i class="legend-dot legend-practice"></i>Реализация и запуск</span>
-    <span><i class="legend-dot legend-attention"></i>Часто вызывают замечания</span>
+  <div class="requirements-legend" aria-label="Зоны карты проектной логики">
+    <span><i class="legend-dot legend-base"></i>Смысл проекта</span>
+    <span><i class="legend-dot legend-core"></i>Логика реализации</span>
+    <span><i class="legend-dot legend-practice"></i>Доказательность</span>
   </div>
 
   <div class="requirements-map">
     <div class="map-core">
-      <span>Система требований</span>
-      <b>НПТ‑маршрут</b>
-      <p>Наука + образовательный опыт + программа + реализуемость</p>
+      <span>Единая система</span>
+      <b>Логика проекта</b>
+      <p>Проблема + решение + реализация + доказанный результат</p>
     </div>
 
     <div class="map-cluster map-cluster-base">
       <div class="cluster-head">
         <span>01</span>
         <div>
-          <h3>Базовая рамка</h3>
-          <p>Эксперт должен быстро понять, что это за маршрут, для кого он создан и зачем он нужен.</p>
+          <h3>Смысл проекта</h3>
+          <p>Есть ли логика, объясняющая, зачем существует проект.</p>
         </div>
       </div>
       <div class="requirement-grid">
         <article class="requirement-card type-base">
           <span class="requirement-number">1</span>
-          <h4>Общая информация</h4>
-          <p>Название, регион, организаторы, аудитория и формат маршрута.</p>
+          <h4>Проблема</h4>
+          <p>Что не работает сейчас и почему это требует вмешательства.</p>
           <b>Связь:</b>
-          <small>задаёт контекст для всех остальных разделов.</small>
+          <small>задаёт основание для цели, решения и результатов.</small>
         </article>
         <article class="requirement-card type-base">
           <span class="requirement-number">2</span>
-          <h4>Цели и задачи</h4>
-          <p>Показывает, какую пользу должен дать маршрут участнику.</p>
+          <h4>Целевая аудитория</h4>
+          <p>Кого касается проблема и для кого создаётся проект.</p>
           <b>Связь:</b>
-          <small>должны подтверждаться программой и ожидаемыми результатами.</small>
+          <small>влияет на формат решения, мероприятия и показатели.</small>
         </article>
-        <article class="requirement-card type-base attention-card">
+        <article class="requirement-card type-base">
+          <span class="requirement-number">3</span>
+          <h4>Актуальность</h4>
+          <p>Почему проблему важно решать именно сейчас и в этом контексте.</p>
+          <b>Связь:</b>
+          <small>усиливает обоснование проекта для экспертов и партнёров.</small>
+        </article>
+        <article class="requirement-card type-base">
           <span class="requirement-number">4</span>
-          <h4>Программа маршрута</h4>
-          <p>Последовательность точек, действий, времени и логики передвижения.</p>
-          <b>Частое замечание:</b>
-          <small>программа выглядит как расписание, но не раскрывает научную логику.</small>
+          <h4>Решение</h4>
+          <p>За счёт чего проект должен изменить ситуацию.</p>
+          <b>Связь:</b>
+          <small>соединяет проблему с целью, задачами и мероприятиями.</small>
         </article>
       </div>
     </div>
@@ -317,38 +227,52 @@
       <div class="cluster-head">
         <span>02</span>
         <div>
-          <h3>Смысловое ядро НПТ</h3>
-          <p>Именно здесь маршрут доказывает, что он научно‑популярный, а не просто экскурсионный.</p>
+          <h3>Логика реализации</h3>
+          <p>Можно ли выполнить проект понятным и реалистичным способом.</p>
         </div>
       </div>
       <div class="requirement-grid">
-        <article class="requirement-card type-core attention-card">
-          <span class="requirement-number">3</span>
-          <h4>Научная составляющая</h4>
-          <p>Научная тема, направление, процесс, достижения и связь с исследованиями.</p>
-          <b>Ключ к верификации:</b>
-          <small>эксперт должен увидеть реальную науку, а не декоративную тему.</small>
-        </article>
-        <article class="requirement-card type-core attention-card">
+        <article class="requirement-card type-core">
           <span class="requirement-number">5</span>
-          <h4>Образовательный компонент</h4>
-          <p>Какие знания, навыки или профориентационный эффект получает участник.</p>
-          <b>Ключ к верификации:</b>
-          <small>результат обучения должен быть понятным и проверяемым.</small>
+          <h4>Цель</h4>
+          <p>Какое изменение должно произойти благодаря проекту.</p>
+          <b>Связь:</b>
+          <small>вырастает из проблемы и задаёт направление задачам.</small>
         </article>
         <article class="requirement-card type-core">
           <span class="requirement-number">6</span>
-          <h4>Научно-популярные объекты</h4>
-          <p>Объекты, лаборатории, музеи, площадки или точки, где раскрывается тема.</p>
+          <h4>Задачи</h4>
+          <p>Крупные шаги, которые ведут от решения к цели.</p>
           <b>Связь:</b>
-          <small>объекты должны работать на научную тему и программу.</small>
+          <small>должны раскладываться в мероприятия и результаты.</small>
         </article>
-        <article class="requirement-card type-core attention-card">
+        <article class="requirement-card type-core">
           <span class="requirement-number">7</span>
-          <h4>Интерактивная составляющая</h4>
-          <p>Что участник делает сам: пробует, исследует, наблюдает, сравнивает, обсуждает.</p>
-          <b>Частое замечание:</b>
-          <small>интерактив заменяют рассказом или пассивным просмотром.</small>
+          <h4>Мероприятия</h4>
+          <p>Что именно будет сделано в ходе проекта.</p>
+          <b>Связь:</b>
+          <small>показывают, как задачи превращаются в действия.</small>
+        </article>
+        <article class="requirement-card type-core">
+          <span class="requirement-number">8</span>
+          <h4>Команда</h4>
+          <p>Кто отвечает за реализацию и какие компетенции уже есть.</p>
+          <b>Связь:</b>
+          <small>подтверждает, что мероприятия можно провести.</small>
+        </article>
+        <article class="requirement-card type-core">
+          <span class="requirement-number">9</span>
+          <h4>Партнёры</h4>
+          <p>Кто усиливает проект ресурсами, доступом или экспертизой.</p>
+          <b>Связь:</b>
+          <small>снижает риски и повышает реалистичность проекта.</small>
+        </article>
+        <article class="requirement-card type-core">
+          <span class="requirement-number">10</span>
+          <h4>Ресурсы</h4>
+          <p>Какие средства, материалы, площадки и условия нужны.</p>
+          <b>Связь:</b>
+          <small>должны соответствовать масштабу мероприятий.</small>
         </article>
       </div>
     </div>
@@ -357,52 +281,45 @@
       <div class="cluster-head">
         <span>03</span>
         <div>
-          <h3>Готовность к реализации</h3>
-          <p>Эти разделы показывают, что маршрут можно безопасно провести, продвигать и передать дальше.</p>
+          <h3>Доказательность</h3>
+          <p>Можно ли доказать ценность проекта экспертам.</p>
         </div>
       </div>
       <div class="requirement-grid">
         <article class="requirement-card type-practice">
-          <span class="requirement-number">8</span>
-          <h4>Техническое обеспечение</h4>
-          <p>Транспорт, оборудование, сопровождение и организационные условия.</p>
-          <b>Связь:</b>
-          <small>поддерживает программу маршрута и интерактив.</small>
-        </article>
-        <article class="requirement-card type-practice attention-card">
-          <span class="requirement-number">9</span>
-          <h4>Безопасность</h4>
-          <p>Риски, ограничения, сопровождение, страхование и медицинская поддержка.</p>
-          <b>Частое замечание:</b>
-          <small>безопасность описана общими словами без реальных мер.</small>
-        </article>
-        <article class="requirement-card type-practice">
-          <span class="requirement-number">10</span>
-          <h4>Стоимость</h4>
-          <p>Понимание расходов, цены участия и экономической реалистичности.</p>
-          <b>Связь:</b>
-          <small>должна соответствовать формату, длительности и логистике.</small>
-        </article>
-        <article class="requirement-card type-practice">
           <span class="requirement-number">11</span>
-          <h4>Продвижение</h4>
-          <p>Как маршрут будет находить аудиторию и партнёров.</p>
+          <h4>Результаты</h4>
+          <p>Что изменится после реализации проекта.</p>
           <b>Связь:</b>
-          <small>опирается на понятную аудиторию и ценность маршрута.</small>
+          <small>должны возвращаться к проблеме, цели и аудитории.</small>
         </article>
         <article class="requirement-card type-practice">
           <span class="requirement-number">12</span>
-          <h4>Ожидаемые результаты</h4>
-          <p>Что изменится после маршрута: знания, интерес, вовлечённость, партнёрства.</p>
+          <h4>Показатели</h4>
+          <p>Как понять, что результат действительно достигнут.</p>
           <b>Связь:</b>
-          <small>возвращает пользователя к целям и образовательному компоненту.</small>
+          <small>делают результат проверяемым, а не декларативным.</small>
         </article>
-        <article class="requirement-card type-practice attention-card">
+        <article class="requirement-card type-practice">
           <span class="requirement-number">13</span>
-          <h4>Документация</h4>
-          <p>Фото, подтверждающие материалы, контакты и готовность комплекта.</p>
-          <b>Частое замечание:</b>
-          <small>не хватает авторских фото, ссылок или понятных подтверждений.</small>
+          <h4>Устойчивость</h4>
+          <p>Что останется после завершения основного этапа.</p>
+          <b>Связь:</b>
+          <small>показывает, что эффект проекта не исчезнет сразу.</small>
+        </article>
+        <article class="requirement-card type-practice">
+          <span class="requirement-number">14</span>
+          <h4>Масштабирование</h4>
+          <p>Как проект можно развивать, повторять или расширять.</p>
+          <b>Связь:</b>
+          <small>опирается на доказанные результаты и работающую модель.</small>
+        </article>
+        <article class="requirement-card type-practice">
+          <span class="requirement-number">15</span>
+          <h4>Подтверждающие материалы</h4>
+          <p>Факты, документы, ссылки и свидетельства, которые усиливают доверие.</p>
+          <b>Связь:</b>
+          <small>поддерживают актуальность, опыт, результаты и партнёрства.</small>
         </article>
       </div>
     </div>
@@ -411,17 +328,21 @@
   <div class="requirements-flow">
     <div>
       <span>Как читать карту</span>
-      <b>База → смысловое ядро → реализация</b>
+      <b>Смысл → реализация → доказательство</b>
     </div>
-    <p>Если слабая база — эксперт не поймёт маршрут. Если слабое ядро — маршрут похож на обычную экскурсию. Если слабая реализация — маршрут трудно запустить и защитить перед дальнейшей проверкой.</p>
+    <p>Если слабый смысл — непонятно, зачем нужен проект. Если слабая реализация — непонятно, как его выполнить. Если слабая доказательность — экспертам трудно поверить в ценность результата.</p>
   </div>
+  </details>
 </section>
 
 <div class="ribbon-wrap">
-  <div class="ribbon">
-    <div class="ribbon-track"></div>
-    <div class="ribbon-fill" id="ribbonFill"></div>
-    <div class="ribbon-stops" id="ribbonStops"></div>
+  <div class="constructor-start">
+    <div class="constructor-start-content">
+      <span class="constructor-kicker">Конструктор</span>
+      <h2>Конструктор проекта</h2>
+      <p>Последовательно проработайте все разделы проекта.</p>
+      <p>Каждый следующий блок помогает уточнить и усилить предыдущие.</p>
+    </div>
   </div>
   <div class="ribbon-caption" id="currentBlockLabel">Сейчас вы находитесь в блоке: Общая информация</div>
 </div>
