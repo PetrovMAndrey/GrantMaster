@@ -1659,6 +1659,7 @@
     gap:14px;
     margin-bottom:16px;
   }
+  .edu-card-passport .edu-examples{align-items:start;}
   .edu-example{
     background:#fff;
     border:1.5px solid var(--sky-200);
