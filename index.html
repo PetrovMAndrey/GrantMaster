@@ -349,6 +349,16 @@
     </div>
   </div>
   <div class="ribbon-caption" id="currentBlockLabel">Сейчас вы находитесь в блоке: Общая информация</div>
+  <div class="project-storage-panel" aria-label="Локальное сохранение проекта">
+    <div class="project-storage-copy">
+      <span class="project-storage-dot" aria-hidden="true"></span>
+      <div>
+        <b id="projectStorageStatus" aria-live="polite">Автосохранение включено</b>
+        <small>Данные остаются только в этом браузере. Очистка данных браузера удалит проект.</small>
+      </div>
+    </div>
+    <button type="button" class="project-clear-btn" onclick="clearSavedProject()">Очистить проект</button>
+  </div>
 </div>
 
 <div class="workspace" id="workspace">

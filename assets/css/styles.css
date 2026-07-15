@@ -1390,6 +1390,56 @@
     display:inline-flex;
     box-shadow:0 8px 20px rgba(17,24,39,0.08);
   }
+  .project-storage-panel{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:12px;
+    padding:13px 16px;
+    border:1px solid var(--sky-200);
+    border-radius:18px;
+    background:rgba(255,255,255,0.86);
+    box-shadow:0 8px 20px rgba(17,24,39,0.05);
+  }
+  .project-storage-copy{display:flex; align-items:flex-start; gap:11px; min-width:0;}
+  .project-storage-dot{
+    width:9px;
+    height:9px;
+    margin-top:5px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 4px rgba(32,161,90,0.1);
+    flex:0 0 auto;
+  }
+  .project-storage-copy b{
+    display:block;
+    color:var(--ink-soft);
+    font-size:13px;
+    line-height:1.35;
+  }
+  .project-storage-copy b[data-status="saving"]{color:var(--blue-deep);}
+  .project-storage-copy b[data-status="error"]{color:#B42318;}
+  .project-storage-panel[data-status="saving"] .project-storage-dot{background:var(--blue); box-shadow:0 0 0 4px rgba(255,104,31,0.12);}
+  .project-storage-panel[data-status="error"] .project-storage-dot{background:#D92D20; box-shadow:0 0 0 4px rgba(217,45,32,0.1);}
+  .project-storage-copy small{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:11.5px;
+    line-height:1.4;
+  }
+  .project-clear-btn{
+    flex:0 0 auto;
+    padding:8px 13px;
+    border:1px solid #FFD1BC;
+    border-radius:999px;
+    background:#FFF7F2;
+    color:var(--blue-deep);
+    font-size:12px;
+    font-weight:700;
+  }
+  .project-clear-btn:hover{border-color:var(--blue); background:var(--sky-100);}
 
   /* ---------- Main layout ---------- */
   .workspace{
@@ -2617,6 +2667,8 @@
       letter-spacing:0.02em;
       white-space:normal;
     }
+    .project-storage-panel{align-items:flex-start; flex-direction:column; gap:12px;}
+    .project-clear-btn{margin-left:20px;}
     .intro-card-grid{grid-template-columns:1fr;}
     .principle-card{min-height:0;}
     .diagnostic-options{grid-template-columns:1fr 1fr;}

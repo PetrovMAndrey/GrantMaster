@@ -138,6 +138,231 @@ const state = {
   }
 };
 
+/* ============== LOCAL PROJECT STORAGE ============== */
+
+const PROJECT_STORAGE_KEY = 'grantmaster:project-draft';
+const PROJECT_SCHEMA_VERSION = 1;
+const PROJECT_SAVE_DELAY = 500;
+const defaultState = JSON.parse(JSON.stringify(state));
+
+let projectSaveTimer = null;
+let projectStorageReady = false;
+let projectStorageWriteBlocked = false;
+let lastSavedSnapshot = '';
+
+function cloneJson(value){
+  return JSON.parse(JSON.stringify(value));
+}
+
+function isPlainObject(value){
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function sanitizeJsonValue(value){
+  if(value === null || typeof value === 'string' || typeof value === 'boolean' || (typeof value === 'number' && Number.isFinite(value))){
+    return value;
+  }
+  if(Array.isArray(value)) return value.map(sanitizeJsonValue).filter(item=>item !== undefined);
+  if(isPlainObject(value)){
+    return Object.fromEntries(
+      Object.entries(value)
+        .map(([key, item])=>[key, sanitizeJsonValue(item)])
+        .filter(([, item])=>item !== undefined)
+    );
+  }
+  return undefined;
+}
+
+function mergeSavedValue(defaultValue, savedValue){
+  if(Array.isArray(defaultValue)){
+    if(!Array.isArray(savedValue)) return cloneJson(defaultValue);
+
+    if(defaultValue.length && isPlainObject(defaultValue[0])){
+      const rows = savedValue
+        .filter(isPlainObject)
+        .map(item=>mergeSavedValue(defaultValue[0], item));
+      return rows.length ? rows : cloneJson(defaultValue);
+    }
+
+    if(defaultValue.length){
+      const itemType = typeof defaultValue[0];
+      return savedValue.filter(item=>typeof item === itemType);
+    }
+
+    return savedValue.filter(item=>typeof item === 'string');
+  }
+
+  if(isPlainObject(defaultValue)){
+    if(!isPlainObject(savedValue)) return cloneJson(defaultValue);
+    const defaultKeys = Object.keys(defaultValue);
+    if(!defaultKeys.length) return sanitizeJsonValue(savedValue) || {};
+    return Object.fromEntries(
+      defaultKeys.map(key=>[key, mergeSavedValue(defaultValue[key], savedValue[key])])
+    );
+  }
+
+  return typeof savedValue === typeof defaultValue ? savedValue : defaultValue;
+}
+
+function replaceState(nextState){
+  Object.keys(state).forEach(key=>delete state[key]);
+  Object.assign(state, nextState);
+}
+
+function restoreDiagnosticState(savedDiagnosticState){
+  Object.keys(diagnosticState).forEach(key=>delete diagnosticState[key]);
+  if(!isPlainObject(savedDiagnosticState)) return;
+  const validQuestionIds = new Set(diagnosticQuestions.map(question=>question.id));
+  Object.entries(savedDiagnosticState).forEach(([key, value])=>{
+    if(validQuestionIds.has(key) && Number.isInteger(value) && value >= 0 && value <= 3){
+      diagnosticState[key] = value;
+    }
+  });
+}
+
+function migrateStoredProject(payload){
+  if(!isPlainObject(payload)) throw new Error('Некорректная структура сохранённого проекта.');
+
+  if(!Object.prototype.hasOwnProperty.call(payload, 'state')){
+    payload = {schemaVersion:0, state:payload, diagnosticState:{}};
+  }
+
+  if(!isPlainObject(payload.state)){
+    throw new Error('Сохранённое состояние проекта имеет неверный формат.');
+  }
+
+  let version = Number.isInteger(payload.schemaVersion) ? payload.schemaVersion : 1;
+  let migrated = payload;
+
+  if(version === 0){
+    migrated = {...migrated, schemaVersion:1};
+    version = 1;
+  }
+
+  if(version !== PROJECT_SCHEMA_VERSION){
+    const error = new Error('Версия сохранённого проекта не поддерживается.');
+    error.code = 'UNSUPPORTED_SCHEMA';
+    throw error;
+  }
+
+  return migrated;
+}
+
+function currentProjectSnapshot(){
+  return JSON.stringify({
+    schemaVersion:PROJECT_SCHEMA_VERSION,
+    state,
+    diagnosticState
+  });
+}
+
+function setProjectStorageStatus(message, type=''){
+  const status = document.getElementById('projectStorageStatus');
+  if(!status) return;
+  status.textContent = message;
+  status.dataset.status = type;
+  const panel = status.closest('.project-storage-panel');
+  if(panel) panel.dataset.status = type;
+}
+
+function loadSavedProject(){
+  let raw;
+  try {
+    raw = localStorage.getItem(PROJECT_STORAGE_KEY);
+  } catch(error){
+    return {status:'unavailable'};
+  }
+
+  if(!raw) return {status:'empty'};
+
+  try {
+    const saved = migrateStoredProject(JSON.parse(raw));
+    replaceState(mergeSavedValue(defaultState, saved.state));
+    restoreDiagnosticState(saved.diagnosticState);
+    normalizeSupportState();
+    normalizeMaterialsState();
+    return {status:'restored'};
+  } catch(error){
+    return {status:error.code === 'UNSUPPORTED_SCHEMA' ? 'unsupported' : 'invalid'};
+  }
+}
+
+function saveProjectNow(){
+  if(!projectStorageReady || projectStorageWriteBlocked) return false;
+  if(projectSaveTimer){
+    clearTimeout(projectSaveTimer);
+    projectSaveTimer = null;
+  }
+
+  const snapshot = currentProjectSnapshot();
+  if(snapshot === lastSavedSnapshot) return true;
+
+  try {
+    const data = JSON.parse(snapshot);
+    data.savedAt = new Date().toISOString();
+    localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(data));
+    lastSavedSnapshot = snapshot;
+    setProjectStorageStatus('Сохранено локально', 'saved');
+    return true;
+  } catch(error){
+    setProjectStorageStatus('Не удалось сохранить в этом браузере', 'error');
+    return false;
+  }
+}
+
+function scheduleProjectSave(){
+  if(!projectStorageReady || projectStorageWriteBlocked) return;
+  if(currentProjectSnapshot() === lastSavedSnapshot) return;
+  if(projectSaveTimer) clearTimeout(projectSaveTimer);
+  setProjectStorageStatus('Сохраняется…', 'saving');
+  projectSaveTimer = setTimeout(saveProjectNow, PROJECT_SAVE_DELAY);
+}
+
+function projectInteractionChanged(event){
+  const target = event.target;
+  if(!(target instanceof Element)) return;
+  if(!target.closest('#projectDiagnostic, #workspace')) return;
+  scheduleProjectSave();
+}
+
+function bindProjectStorage(){
+  document.addEventListener('input', projectInteractionChanged);
+  document.addEventListener('change', projectInteractionChanged);
+  document.addEventListener('click', projectInteractionChanged);
+  window.addEventListener('pagehide', saveProjectNow);
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'hidden') saveProjectNow();
+  });
+}
+
+function clearSavedProject(){
+  const confirmed = window.confirm('Удалить все данные текущего проекта из этого браузера? Это действие нельзя отменить.');
+  if(!confirmed) return;
+
+  if(projectSaveTimer){
+    clearTimeout(projectSaveTimer);
+    projectSaveTimer = null;
+  }
+
+  try {
+    localStorage.removeItem(PROJECT_STORAGE_KEY);
+  } catch(error){
+    setProjectStorageStatus('Не удалось удалить сохранённые данные', 'error');
+    window.alert('Браузер не разрешил удалить локально сохранённый проект.');
+    return;
+  }
+
+  replaceState(cloneJson(defaultState));
+  restoreDiagnosticState({});
+  projectStorageWriteBlocked = false;
+  currentStep = 0;
+  partnerConfirmationVisibleLinks = 1;
+  lastSavedSnapshot = currentProjectSnapshot();
+  renderAll();
+  setProjectStorageStatus('Новый проект. Автосохранение включено', 'saved');
+  document.getElementById('workspace').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
 let currentStep = 0;
 let partnerConfirmationVisibleLinks = 1;
 
@@ -3827,4 +4052,21 @@ function renderAll(){
   renderDiagnostic();
 }
 
+const projectLoadResult = loadSavedProject();
+lastSavedSnapshot = currentProjectSnapshot();
+projectStorageWriteBlocked = projectLoadResult.status === 'unsupported';
+projectStorageReady = true;
+bindProjectStorage();
 renderAll();
+
+if(projectLoadResult.status === 'restored'){
+  setProjectStorageStatus('Проект восстановлен и сохраняется локально', 'saved');
+} else if(projectLoadResult.status === 'invalid'){
+  setProjectStorageStatus('Сохранённые данные повреждены. Начат новый проект', 'error');
+} else if(projectLoadResult.status === 'unavailable'){
+  setProjectStorageStatus('Локальное сохранение недоступно в этом браузере', 'error');
+} else if(projectLoadResult.status === 'unsupported'){
+  setProjectStorageStatus('Проект создан в более новой версии. Очистите его, чтобы начать заново', 'error');
+} else {
+  setProjectStorageStatus('Автосохранение включено', 'saved');
+}
