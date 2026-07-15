@@ -1660,6 +1660,9 @@
     margin-bottom:16px;
   }
   .edu-card-passport .edu-examples{align-items:start;}
+  .edu-card-problem .edu-examples{align-items:start;}
+  .edu-card-audience .edu-examples{align-items:start;}
+  .edu-card-concept .edu-examples{align-items:start;}
   .edu-example{
     background:#fff;
     border:1.5px solid var(--sky-200);
